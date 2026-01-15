@@ -1,0 +1,35 @@
+plugins {
+    id("idea")
+    id("java")
+    id("com.gradleup.shadow") version "9.3.0"
+}
+
+group = "studio.chunni"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly(files("libs/HytaleServer.jar"))
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("club.minnced:discord-webhooks:0.8.4")
+    implementation("org.slf4j:slf4j-simple:2.0.12")
+    implementation("net.dv8tion:JDA:6.1.1")
+}
+
+
+tasks {
+    shadowJar {
+        archiveBaseName.set("hytale-discord-link")
+        archiveClassifier.set("")
+        archiveVersion.set("1.0-SNAPSHOT")
+    }
+
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
