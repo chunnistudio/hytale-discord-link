@@ -1,0 +1,6 @@
+{
+  "Group":"studio.chunni",
+  "Name": "hytale-discord-link",
+  "Version": "1.0.0",
+  "Main": "studio.chunni.HytaleDiscordLinkPlugin"
+}
