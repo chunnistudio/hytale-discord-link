@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 plugins {
     id("idea")
     id("java")
@@ -5,7 +7,16 @@ plugins {
 }
 
 group = "studio.chunni"
-version = "1.0-SNAPSHOT"
+val manifestFile = file("src/main/resources/manifest.json")
+val manifestJson = JsonSlurper().parse(manifestFile) as Map<*, *>
+val manifestVersion = manifestJson["Version"] as String
+
+val isRelease: String? by project
+version = if (isRelease == "true") {
+    manifestVersion }
+else {
+    "$manifestVersion-SNAPSHOT"
+}
 
 repositories {
     mavenCentral()
@@ -25,7 +36,7 @@ tasks {
     shadowJar {
         archiveBaseName.set("hytale-discord-link")
         archiveClassifier.set("")
-        archiveVersion.set("1.0-SNAPSHOT")
+        archiveVersion.set(version.toString())
     }
 
 }
